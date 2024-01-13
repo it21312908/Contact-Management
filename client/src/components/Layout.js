@@ -1,9 +1,11 @@
 import React from 'react'
+import Navbar from './Navbar'
 
-export default function Layout({children}) {
+export default function Layout({navbar = true, children}) {
   return (
     <>
-    <div className="container">
+    {navbar && <Navbar></Navbar>}
+    <div className="container mt-3">
       {children}
     </div>
     </>
