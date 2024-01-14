@@ -4,10 +4,14 @@ import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Layout from './components/Layout';
 import { Routes as Switch, Route } from 'react-router-dom';
+import { AuthContextProvider } from './context/AuthContext';
+import ToastContext, { ToastContextProvider } from './context/ToastContext';
 
 function App() {
   return (
     <>
+    <AuthContextProvider>
+      <ToastContextProvider>
     <Layout>
       <Switch>
         <Route path='/' element={<Home/>}></Route>
@@ -15,6 +19,8 @@ function App() {
         <Route path='/register' element={<Register/>}></Route>
       </Switch>
     </Layout>
+    </ToastContextProvider>
+    </AuthContextProvider>
     </>
   );
 }

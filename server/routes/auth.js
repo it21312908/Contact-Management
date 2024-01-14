@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 
 //models
 const User = require("../models/User")
+const auth = require("../middlewares/auth");
 
 router.post("/login", async (req, res) => {
     const { email, password } = req.body;
@@ -41,7 +42,7 @@ router.post("/login", async (req, res) => {
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
         expiresIn: "1h",
       });
-  
+
       const user = { ...doesUserExits._doc, password: undefined };
       return res.status(200).json({ token, user });
     } catch (err) {
@@ -101,6 +102,10 @@ router.post("/register", async (req, res) => {
       console.log(err);
       return res.status(500).json({ error: err.message });
     }
+  });
+
+  router.get("/me", auth, async (req, res) => {
+    return res.status(200).json({ ...req.user._doc });
   });
 
 

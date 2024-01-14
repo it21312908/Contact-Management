@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { useState } from 'react';
 
 import {ToastContainer, toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AuthContext from '../context/AuthContext';
 
 export default function Login() {
+
+  const {loginUser} = useContext(AuthContext)
     const [credentials , setCredentials] = useState({
         email:"",
         password:"",
@@ -21,8 +24,11 @@ export default function Login() {
         event.preventDefault();
 
         if(!credentials.email || !credentials.password){
-          
+          toast.error("please enter the required fields");
+          return;
         }
+
+        loginUser(credentials)
       }
 
   return (

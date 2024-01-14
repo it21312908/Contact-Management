@@ -1,7 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 
+import {ToastContainer, toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import AuthContext from '../context/AuthContext';
+
 export default function Register() {
+
+  const { registerUser } = useContext(AuthContext);
 
     const [credentials , setCredentials] = useState({
         name:"",
@@ -18,10 +25,24 @@ export default function Register() {
 
       const handleSubmit = (event) => {
         event.preventDefault();
+
+        if(!credentials.email || !credentials.password || !credentials.name || !credentials.confirmPassword){
+          toast.error("please enter the required fields");
+          return;
+        }
+
+        if(credentials.password !== credentials.confirmPassword){
+          toast.error("Password do not match");
+          return;
+        }
+
+        const userData = {...credentials, confirmPassword: undefined}
+        registerUser(userData)
       }
 
   return (
     <>
+    <ToastContainer autoClose={2000}/>
     <h3>Register</h3>
     <form onSubmit={handleSubmit}>
         <div class="form-group">

@@ -11,7 +11,8 @@ const app = express();
 
 //middlewares
 app.use(express.json());
-app.use(morgan("tiny"))
+app.use(morgan("tiny"));
+app.use(require("cors")())
 
 //routes
 app.use("/protected", auth, (req, res) => {
