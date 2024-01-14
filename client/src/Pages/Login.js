@@ -2,6 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useState } from 'react';
 
+import {ToastContainer, toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function Login() {
     const [credentials , setCredentials] = useState({
         email:"",
@@ -16,10 +19,15 @@ export default function Login() {
 
       const handleSubmit = (event) => {
         event.preventDefault();
+
+        if(!credentials.email || !credentials.password){
+          
+        }
       }
 
   return (
     <>
+    <ToastContainer autoClose={2000}/>
     <h3>Login</h3>
     <form onSubmit={handleSubmit}>
        
